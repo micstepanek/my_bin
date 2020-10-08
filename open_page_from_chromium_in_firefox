@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+#2
+from subprocess import run
+import my_library as my 
+
+run(['firefox', my.get_address_bar()])
+#my.wait_for('Chromium-browser')
+my.move_me_to_workspace('f')

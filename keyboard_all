@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#2
+sudo vifm /usr/share/X11/xkb/symbols

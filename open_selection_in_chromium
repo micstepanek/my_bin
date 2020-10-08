@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+#2
+
+from subprocess import run
+from subprocess import check_output 
+
+run(["i3-msg", "workspace", "te"])
+run(["i3-msg", "workspace", "d"])
+
+browser = "chromium-browser"
+selection_bytes = check_output(['xclip', '-selection', 'primary', '-o'])
+with open('/home/h/aa/docs/domains', 'r') as file:
+    domain = file.readline()
+selection_string = selection_bytes.decode()
+selection_list = selection_string.rsplit()
+for string in selection_list:
+    if string.startswith('http'):
+        run([browser, string])
+    elif string.startswith('/'):
+        run([browser, domain + string])

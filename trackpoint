@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+#2
+from subprocess import check_output,run
+
+state = check_output(['xinput', '--list', '13'])
+state = state.decode()[85:93]
+if state != 'disabled':
+    run(['xinput', 'disable', '13'])
+else:
+    run(['xinput', 'enable', '13'])

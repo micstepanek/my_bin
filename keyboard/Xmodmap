@@ -1,0 +1,5 @@
+clear mod2
+add Shift = Shift_R 
+keycode 148 = Down
+keycode 39 = ISO_Level5_Latch
+add mod3 = ISO_Level5_Latch

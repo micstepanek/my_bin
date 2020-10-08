@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#2n
+sleep 0.1
+xprop WM_CLASS WM_WINDOW_ROLE _NET_WM_WINDOW_TYPE _NET_WM_NAME WM_NAME
+read -n1

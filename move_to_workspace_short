@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+#
+import os
+import subprocess as sp
+import sys
+import tty
+
+print('hlmpq')
+tty.setraw(sys.stdin.fileno())
+w = sys.stdin.read(1)
+sp.run(['i3-msg','workspace', w])
+os.system("stty sane")

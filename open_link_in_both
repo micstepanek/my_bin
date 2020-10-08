@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+#2
+
+from subprocess import run
+from subprocess import check_output 
+import copy
+
+
+archive = "http://web.archive.org/web/2/"
+with open('/home/h/aa/docs/domains', 'r') as file:
+            domain = file.readline()
+
+run(["xdotool", "click", "1"])
+old_string = b''
+new_string = b''
+while b' ' not in new_string and len(new_string) >= len(old_string):
+    run(["xdotool", "click","1"])
+    #print(new_string,old_string)
+    old_string = copy.copy(new_string)
+    #print(new_string,old_string)
+    try:
+        new_string = check_output(['xclip', '-selection', 'primary', '-o'])
+        #print(new_string,old_string)
+    except Error:
+        print('er')
+        continue
+
+run(["i3-msg","workspace","tmp"])
+run(["i3-msg","workspace","d"])
+
+string = old_string.decode()
+if string.startswith('http'):
+    run(['chromium-browser', archive + string])
+    run(['chromium-browser', string])
+elif string.startswith('/'):
+    run(['chromium-browser', archive + domain + string])
+    run(['chromium-browser', domain + string])
+#run(['firefox','-new-tab', d])
+#run(['i3-msg','[class="Firefox"]', 'focus;', 'mode', 'firefox'])
+#run(['chromium-browser', e])
+#run(['i3-msg','[class="Chromium-browser"]', 'focus'])

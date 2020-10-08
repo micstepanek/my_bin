@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#2n
+i3-msg "move container to workspace 8"
+i3-msg workspace 8
+nmcli con up id "JS VPN AD BRQ"
+route
+nmcli con &
+echo turn off? double return
+read
+read
+nmcli con down id "JS VPN AD BRQ"
+read
+read

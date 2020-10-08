@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+#2
+from i3ipc import Connection
+from subprocess import run
+
+i3 = Connection()
+info = i3.get_tree().find_focused().marks
+if info == []:
+    info = ' '
+else:
+    info = info[0]
+run(['urxvt', '-e', 'mark2', info])
+

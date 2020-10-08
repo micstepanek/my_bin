@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#2
+vifm ~/ajj/i3tags/level2 ~/ajj/i3tags/urxvt

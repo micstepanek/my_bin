@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+#
+#import subprocess as sp
+import argparse
+from random import sample
+from string import ascii_uppercase
+from i3ipc import Connection
+import itertools
+
+print()
+# get current mark from script mark1
+parser = argparse.ArgumentParser()
+parser.add_argument("current_mark")
+args = parser.parse_args()
+current_mark = [char for char in args.current_mark if char.islower()]
+current_mark = ' '.join(sorted(current_mark))
+
+
+i3 = Connection()
+tree = i3.get_tree()
+current = tree.find_focused().workspace().name
+
+marks = [leaf.marks for leaf in tree.leaves()] 
+flatten = itertools.chain.from_iterable
+chars = set(flatten(flatten(marks)))
+lower = [char for char in chars if char.islower()]
+lower.sort()
+print('    hard   to  access:','hl')
+print('    marks  everywhere:',' '.join(lower))
+print('    current      mark:', current_mark)
+print('    current workspace:', current)
+mark = input('    new          mark: ')
+i3.command('move scratchpad')
+if mark == '.':
+    exit()
+if mark == '':
+    i3.command('kill')
+    exit()
+
+rand = sample((ascii_uppercase),2)
+rand = ''.join(rand)
+mark = "{}{}".format(mark, rand)
+i3.command('mark ' + mark)
+
+i3.command('[con_mark={0}] move container to workspace {0}'.format(mark[0]))
+if '.' in mark:
+    i3.command('workspace' + mark[0])
+
+

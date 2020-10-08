@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#2n
+bash --init-file <( printf '%s\n' 'source ~/.bashrc' 'source ./datasci/datasci/bin/activate' 'jupyter notebook') &
+#i3-msg move container to workspace 8

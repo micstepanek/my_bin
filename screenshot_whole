@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#2
+#xdotool key F11
+cd /home/a/ajj/screenshots
+#sleep 3
+#nohup scrot -s &
+scrot
+#xdotool key F11

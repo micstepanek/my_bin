@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+#m
+import subprocess as sp
+
+w = input()
+sp.run(['i3-msg','workspace', w])

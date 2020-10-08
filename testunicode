@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+import pyautogui
+import sys
+import subprocess
+print(sys.maxunicode)
+maxi = (sys.maxunicode)
+
+pyautogui.click()
+#subprocess.run(['xdotool', 'click', '1'])
+#for x in range(121,maxi):
+#for x in range(221,999):
+for x in range(1999,9999):
+    if x % 99 == 0:
+        pyautogui.click()
+    h = hex(x).upper()[2:]
+    s = f'U{h}'
+    print(s)
+    subprocess.run(['xdotool', 'key', h])
+    
+
+ 

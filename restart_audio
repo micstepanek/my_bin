@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+killall pulseaudio; pulseaudio -k  ; rm -r ~/.config/pulse/* ; rm -r ~/.pulse*
+echo 'killed pulseaudio and tried to remove configs'
+echo 'wait 11 seconds, I will print done'
+sleep 10
+pulseaudio --start
+echo done
+# https://help.ubuntu.com/community/SoundTroubleshootingProcedure

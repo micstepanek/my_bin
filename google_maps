@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#2
+nohup chromium-browser --app=https://www.google.cz/maps/@50.0125298,14.4644603,14z &

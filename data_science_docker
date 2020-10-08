@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#i3-msg move container to workspace 1
+#i3-msg workspace 1
+#docker run -it --rm -p 8888:8888 -v ~/notebooks:/home/jovyan stepankuzmin/pytorch-notebook
+#docker run -it --rm -p 8888:8888 -v ~:/home/jovyan/work jupyter/datascience-notebook
+cd ~/aa/docker-compose/datascience-notebook
+docker-compose up

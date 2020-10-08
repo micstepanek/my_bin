@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+#2
+from subprocess import run
+import my_library as my 
+
+run(['chromium-browser', my.get_address_bar()])
+#my.wait_for('Chromium-browser')
+run(['i3-msg','workspace','c'])
+

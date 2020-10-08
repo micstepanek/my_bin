@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+#2
+from subprocess import run
+from subprocess import check_output 
+import copy
+
+def g(line):
+    print(line, i, new_string, old_string)
+
+def click():
+    run(["xdotool", "click","1"])
+
+old_string = b''
+click()
+for i in range(5):
+    click()
+    try:
+        new_string = check_output(['xclip', '-selection', 'primary', '-o'])
+    except Error:
+        print('er')
+        continue
+
+    if b' ' in new_string:
+        continue
+    elif len(old_string) > len(new_string):
+        continue
+    else:
+        old_string = copy.copy(new_string)
+
+   
+url = old_string.decode()
+
+run(['firefox', url])
+

@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+#m
+
+from tkinter import Tk, Label, StringVar
+from i3ipc import Connection
+
+i3 = Connection()
+
+class GUI:
+    def __init__(self, master):
+        self.master = master
+
+        self.label_text = StringVar()
+        self.label = Label(master, justify='left', textvariable=self.label_text)
+        self.label.pack()
+        self.label_text.set('move us to workspace')
+        
+       
+
+    def workspace(self, event):
+        i3.command('focus tiling')
+        i3.command('move container to workspace' + event.char)
+        i3.command('workspace' + event.char)
+        root.destroy()
+            
+root = Tk()
+my_gui = GUI(root)
+root.wm_attributes('-type', 'dialog')
+root.bind('0', my_gui.workspace)
+root.bind('1', my_gui.workspace)
+root.bind('2', my_gui.workspace)
+root.bind('3', my_gui.workspace)
+root.bind('4', my_gui.workspace)
+root.bind('5', my_gui.workspace)
+root.bind('6', my_gui.workspace)
+root.bind('7', my_gui.workspace)
+root.bind('8', my_gui.workspace)
+root.bind('9', my_gui.workspace)
+root.bind('a', my_gui.workspace)
+root.bind('b', my_gui.workspace)
+root.bind('c', my_gui.workspace)
+root.bind('d', my_gui.workspace)
+root.bind('e', my_gui.workspace)
+root.bind('f', my_gui.workspace)
+root.bind('g', my_gui.workspace)
+root.bind('h', my_gui.workspace)
+root.bind('i', my_gui.workspace)
+root.bind('j', my_gui.workspace)
+root.bind('k', my_gui.workspace)
+root.bind('l', my_gui.workspace)
+root.bind('m', my_gui.workspace)
+root.bind('n', my_gui.workspace)
+root.bind('o', my_gui.workspace)
+root.bind('p', my_gui.workspace)
+root.bind('q', my_gui.workspace)
+root.bind('r', my_gui.workspace)
+root.bind('s', my_gui.workspace)
+root.bind('t', my_gui.workspace)
+root.bind('u', my_gui.workspace)
+root.bind('v', my_gui.workspace)
+root.bind('w', my_gui.workspace)
+root.bind('x', my_gui.workspace)
+root.bind('y', my_gui.workspace)
+root.bind('z', my_gui.workspace)
+#root.bind('<ISO_Level2_Latch>', lambda e: my_gui.lx(e, tag='2'))
+#root.bind('<ISO_Level3_Latch>', lambda e: my_gui.lx(e, tag='3'))
+#root.bind('<ISO_Level5_Latch>', lambda e: my_gui.lx(e, tag='5'))
+#root.bind('<Down>', a)
+#root.bind('<ISO_Level3_Latch>', l2)
+#root.bind('<colon>', a)
+root.bind('<Escape>', lambda e: root.destroy())
+root.wait_visibility() 
+i3.command('border pixel 0')
+root.mainloop()

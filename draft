@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#2
+nohup gedit &
+sleep 1
+i3-msg move down
+i3-msg resize shrink height
+i3-msg resize shrink height
+i3-msg resize shrink height
+i3-msg resize shrink height

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#2
+i3-msg focus tiling
+sleep 0.1
+xdotool key F6
+xdotool key ctrl+c
+a=$(xclip -o -sel clip)
+xdotool key ctrl+v
+nohup chromium-browser $a &

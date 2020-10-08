@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+#2
+
+from subprocess import run
+from subprocess import check_output 
+
+#run(["i3-msg", "workspace", "tmp"])
+#run(["i3-msg", "workspace", "d"])
+
+browser = "firefox"
+selection_bytes = check_output(['xclip', '-selection', 'primary', '-o'])
+selection_string = selection_bytes.decode()
+run([browser, selection_string])

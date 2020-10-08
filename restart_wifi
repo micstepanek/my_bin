@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#2n
+#sudo service network-manager restart
+#nmcli radio wifi off
+echo nmcli networking off
+nmcli networking off
+echo nmcli networking on
+nmcli networking on
+echo done
+read
+#echo nmcli radio wifi off
+#nmcli radio wifi on
+#echo nmcli radio wifi on

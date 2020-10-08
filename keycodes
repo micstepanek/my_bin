@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#2
+#i3-msg move container to workspace temp
+#i3-msg workspace temp
+#i3-msg move container to workspace n
+#i3-msg workspace n
+less /usr/share/X11/xkb/keycodes/evdev

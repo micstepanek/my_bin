@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+#2
+
+from subprocess import run
+from subprocess import check_output 
+
+#run(["i3-msg","workspace","tmp"])
+run(["i3-msg","workspace","d"])
+run(["i3-msg","workspace","d"])
+
+archive = "http://web.archive.org/web/2013/"
+browser = "chromium-browser"
+selection_bytes = check_output(['xclip', '-selection', 'primary', '-o'])
+
+selection_string = selection_bytes.decode()
+selection_list = selection_string.split()
+for string in selection_list:
+    if string.startswith('http'):
+        run([browser, archive + string])
+    elif string.startswith('/'):
+        with open('/home/h/aa/docs/domains', 'r') as file:
+            domain = file.readline()
+        run([browser, archive + domain + string])

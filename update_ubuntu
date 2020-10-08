@@ -1,0 +1,9 @@
+#!/bin/bash
+#2n
+echo $0
+echo sudo apt update
+sudo apt update
+echo Press any symbol to upgrade
+read -n1
+sudo apt upgrade
+bash

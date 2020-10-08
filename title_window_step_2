@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+read
+xdotool set_window --name ${REPLY} $1

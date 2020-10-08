@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+#
+import subprocess
+
+query = subprocess.check_output(['xclip', '-selection', 'primary', '-o'])
+query = query.decode()
+without_dollar = query.split('$', 1)[-1]
+list_ = without_dollar.split()
+command = ['urxvtc', '-hold', '-e']
+command = command + list_
+print(command)
+subprocess.run(command)

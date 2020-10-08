@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+nohup lxterminal -e vifm ~/aa &

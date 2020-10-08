@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#2$
+#vifm /usr/share/X11/xkb/symbols
+#sudo vim /usr/share/X11/xkb/symbols/mus
+urxvtc -e gvim /usr/share/X11/xkb/symbols/mc
+#nohup urxvt -e sudo vim /usr/share/X11/xkb/symbols/uni &
+#while true
+#do
+#  setxkbmap -print -verbose 10
+#  setxkbmap mc
+#the lock is there just to initialize lv5
+#  setxkbmap mc -option lv5:rwin_switch_lock && xmodmap ~/.Xmodmap
+#  setxkbmap mc -option lv5:rwin_switch_lock
+#  read
+#done

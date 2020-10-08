@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#2n
+i3-msg resize set 430 320
+watch -tn1 "
+iwconfig wlp3s0  | grep -oE 'ESSID.*|Link.Quality.......'
+upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -P 'state|percentage|time'
+printf 'Volume: '
+pactl list sinks | grep -oP '\d{2,3}%' | head -1
+printf '6  June Červen
+7  July Červenec
+8  August Srpen
+11 November
+12 December
+'
+date '+%a , %d.%m. %b  %r%p  %Z'
+date -R 
+"
