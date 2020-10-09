@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+check_hidden
+echo hit Return to save i3 config and restart immediatelly
+read
+cp ~/.config/i3/config ~/.config/i3/config_before_restart
+shutdown 0 -r
