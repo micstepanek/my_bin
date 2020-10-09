@@ -1,1 +1,229 @@
-/home/h/aa/bin/i3/reload_i3
+#!/usr/bin/env python3
+import re
+import os
+import subprocess
+import time
+
+with open("/home/h/aa/bin/i3/preconfig", "r") as source:
+    s = source.read()
+def r(a, b):
+    global s
+    s = re.sub(a, b, s, flags=re.M)
+#position stabilisation
+r(r'^ (\S) ', r' \1@ ')
+r(r'^ (\S)$', r' \1@')
+r(r'^ (\S)-', r' \1@-')
+
+#everywhere
+r('^(\w.*)', r'\1\n n0 exec volume_down')
+r('^(\w.*)', r'\1\n n. exec volume_up')
+r('^(\w.*)', r'\1\n ne exec toggle_screen')
+r('^(\w.*)', r'\1\n ho @f')
+r('^(\w.*)', r'\1\n cl @f')
+
+#new everewhere - not yet
+everywhere = '''bindsym Henkan_Mode mode henkan
+bindsym space mode default
+bindsym Escape mode default
+'''
+
+#transfom rest to modes
+r('^(\w.*)', r'} mode "\1" {')
+r('^} mode "main"'   , r'mode "main"')
+#position 5,6
+r( '^ (..) p ',     r' \1 exec xdotool keyup \1 key --clearmodifiers --delay 30 ')
+r( '^ (..) k ',     r' \1 mode default; exec xdotool keyup \1 key --clearmodifiers --delay 0 ')
+r( '^ (..) e ' ,    r' \1 @d exec ')
+r( '^ (..) i (.*)', r' \1 @d \2')
+r( '^ (..) u'  ,    r' \1 mode default; @m \1; workspace \1')
+r(r'^ (..) o$' ,    r' \1 mode default @m _ @m \1 @m \1 @m \1 @m \1 @m \1 @w _ @m _ @w \1')
+#position 4
+r('^ (..)$', r' \1 mode default; nop switch')
+#r('^ (..)$', r' \1 mode default; workspace \1; nop switch')
+r('^ (..)-', r' \1 nop mode; mode ')
+#position 2,3
+r('^ cl'    , r' bindsym Escape')
+r('keyup cl', r'keyup Escape')
+r('^ en'    , r' bindsym End')
+r('^ (\d\d)', r' bindsym F\1')
+r('^ f(\d)' , r' bindsym F\1')
+r('^ fo'    , r' bindcode 133')
+r('^ he'    , r' bindsym Henkan_Mode')
+r('^ hi'    , r' bindsym Hiragana_Katakana')
+r('^ ho'    , r' bindsym Home')
+r('^ lm'    , r' bindsym --whole-window button1')
+r('^ mu'    , r' bindcode 102')
+r('^ n7'    , r' bindcode 79')
+r('^ n8'    , r' bindcode 80')
+r('^ n9'    , r' bindcode 81')
+r('^ n4'    , r' bindcode 83')
+r('^ n5'    , r' bindcode 84')
+r('^ n6'    , r' bindcode 85')
+r('^ n1'    , r' bindcode 87')
+r('^ n2'    , r' bindcode 88')
+r('^ n3'    , r' bindcode 89')
+r('^ n0'    , r' bindcode 90')
+r('^ n\.'   , r' bindcode 91')
+r('^ ne'    , r' bindcode 104')
+r('^ pr'    , r' bindcode 107')
+r('^ ra'    , r' bindcode 108')
+r('^ re'    , r' bindsym Return')
+r('keyup re', r'keyup Return')
+r('^ rs'    , r' bindcode 62')
+r('^ sp'    , r' bindsym space')
+r('^ l2'    , r' bindsym ISO_Level2_Latch exec xdotool keyup --delay 0 ISO_Level2_Latch key --delay 0 VoidSymbol;')
+r('^ l3'    , r' bindsym ISO_Level3_Latch exec xdotool keyup --delay 0 ISO_Level3_Latch key --delay 0 VoidSymbol;')
+r('^ l5'    , r' bindsym ISO_Level5_Latch exec xdotool keyup --delay 0 ISO_Level5_Latch key --delay 0 VoidSymbol;')
+r('^ 0@'    , r' bindsym 0')
+r('^ 1@'    , r' bindsym 1')
+r('^ 2@'    , r' bindsym 2')
+r('^ 3@'    , r' bindsym 3')
+r('^ 4@'    , r' bindsym 4')
+r('^ 5@'    , r' bindsym 5')
+r('^ 6@'    , r' bindsym 6')
+r('^ 7@'    , r' bindsym 7')
+r('^ 8@'    , r' bindsym 8')
+r('^ 9@'    , r' bindsym 9')
+r('^ ;@'    , r' bindsym semicolon')
+r('^ \.@'   , r' bindsym period')
+r('^ \'@'   , r' bindcode 48')
+r('^ ,@'    , r' bindsym comma')
+r('^ /@'    , r' bindsym slash')
+r('keyup /@', r'keyup slash')
+r('^ \^(.)', r' bindsym Shift+\1')
+r('keyup \^(.)', r'keyup Shift+\1')
+r('keyup (.)@'  , r'keyup \1')
+r('keyup mu'    , r'keyup Muhenkan')
+r('keyup ;'    , r'keyup semicolon')
+#r('^ s@'  , r' bindcode 39')
+#r('^ d@'  , r' bindcode 40')
+#r('^ f@'  , r' bindcode 41')
+r('^ (.)@'  , r' bindsym \1')
+#nonpositional
+r('@f',r'mode default; nop reset')
+r('@d',r'mode default; nop reset;')
+r(' @w',r'; workspace')
+r(' @m',r'; move container to workspace')
+#return to position
+r('(.)@', r'\1')
+#style
+r('^ ', r'    ')
+#end last mode
+
+#aabin = '/home/a/aa/bin'
+l2 = '/home/a/aa/bin/l2'
+l2_urxvtc = '/home/a/aa/bin/l2_urxvtc'
+simple_commands = [c for c in os.listdir(l2) if os.path.isfile(os.path.join(l2, c))]
+l2_urxvtc_commands = [c for c in os.listdir(l2_urxvtc) if os.path.isfile(os.path.join(l2_urxvtc, c))]
+commands = simple_commands + l2_urxvtc_commands
+#commands = [c for c in os.listdir(aabin) if os.path.isfile(os.path.join(aabin, c))]
+commands = [com for com in commands if com not in os.listdir('/home/a/aa/bin/l2ignore')]
+commands.sort()
+for c in commands:
+    print(c)
+
+def print_(dict):
+    for mod in dict:
+        print(mod)
+        for item in dict[mod]:
+            print('   ', item)
+
+def get_mods(commands):
+    mods = {}
+    for i in range(len(commands) - 1):
+        prefix = os.path.commonprefix(commands[i:i + 2]) #pairwise
+        if prefix and prefix not in mods:
+            mods[prefix] = [prefix]
+    mods['level2'] = ['level2']
+    return mods
+
+def add_full_mod_names(dict, commands):
+    mod_list = sorted(dict, reverse=True)
+    for command in commands:
+        for mod in mod_list:
+            if command.startswith(mod):
+                dict[mod][0] += f'|{command[len(mod):]}'
+    return dict
+
+def link_mods(dict):
+    mod_list = sorted(dict)
+    mod_list.insert(0, '')
+    for i in range(1, len(mod_list)):
+        prefix = os.path.commonprefix(mod_list[i-1 : i+1]) #pairwise
+        if prefix:
+            dict[prefix].append(
+                f'    bindsym {mod_list[i][len(prefix)]} mode {dict[mod_list[i]][0]}; nop mode')
+        else:
+            dict['level2'].append(
+                f'    bindsym {mod_list[i][0]} mode {dict[mod_list[i]][0]}; nop mode')
+    return dict
+
+def prepend_mode(dict):
+    for mode in dict:
+        dict[mode][0] = f'mode {dict[mode][0]} {{'
+    return dict
+
+def add_commands(dict, commands):
+    mod_list = sorted(dict, reverse=True)
+    mod_list.remove('level2')
+    mod_list.append('level2')
+    for command in commands:
+        for mod in mod_list:
+            if command.startswith(mod):
+                bindsym = command[len(mod)]
+                if command in os.listdir('/home/h/aa/bin/l2_urxvtc'):
+                    dict[mod].append(
+                        f'    bindsym {bindsym} exec urxvtc -e {command}; mode default; nop reset')
+                else:
+                    dict[mod].append(
+                        f'    bindsym {bindsym} exec {command}; mode default; nop reset')
+                break
+            elif mod == 'level2':
+                if command in os.listdir('/home/h/aa/bin/l2_urxvtc'):
+                    dict[mod].append(
+                        f'    bindsym {command[0]} exec urxvtc -e {command}; mode default; nop reset')
+                else:
+                    dict[mod].append(
+                        f'    bindsym {command[0]} exec {command}; mode default; nop reset')
+    return dict
+
+def add_escapes(dict):
+    for mod in dict:
+        dict[mod].append('    bindsym Escape mode default; nop reset')
+        dict[mod].append('    bindsym space mode default; nop reset')
+        dict[mod].append('}')
+    return dict
+
+def stringify(dict):
+    result = ''
+    for mod in dict:
+        for line in dict[mod]:
+            result += f'''{line}
+'''
+    return result
+
+short_mods = get_mods(commands)
+hinted_mods = add_full_mod_names(short_mods, commands)
+linked_mods = link_mods(hinted_mods)
+mode_mods = prepend_mode(linked_mods)
+executable_mods = add_commands(mode_mods, commands)
+escapable_mods = add_escapes(executable_mods)
+part_3 = stringify(escapable_mods)
+print(part_3)
+
+
+
+with open("/home/h/aa/bin/i3/static", "r") as source:
+    part_1 = source.read()
+
+res = part_1 + s + part_3
+
+with open("/home/h/.config/i3/config", "w") as f:
+        f.write(res)
+
+subprocess.run(['i3-msg', 'reload'])
+time.sleep(0.1)
+subprocess.run(['notify-send', 'i3', 'reloaded'])
+
+
+
