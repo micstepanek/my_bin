@@ -27,6 +27,7 @@ class Redshift:
         elif key.keysym in ('1', 'o', 'f'):
             self.brightness = 100 
         elif key.keysym == 'Escape':
+            remember(self.temperature, self.brightness)
             root.destroy()
             return
         else:
@@ -34,7 +35,6 @@ class Redshift:
         run(['redshift',
              '-O', str(self.temperature),
              '-b', str(self.brightness /100)])
-        remember(self.temperature, self.brightness)
 
 def get_absolute_path(relative_path):
     this_file_path = os.path.realpath(__file__) 

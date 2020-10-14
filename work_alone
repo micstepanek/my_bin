@@ -23,7 +23,7 @@ def battery_ok():
         print(state)
         print(percentage)
         print('turning off display in')
-        for i in reversed(range(3)):
+        for i in reversed(range(2)):
             print(i)
             time.sleep(1)
 
