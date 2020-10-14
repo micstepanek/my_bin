@@ -1,40 +1,48 @@
 #!/usr/bin/env python3
 #2
-from tkinter import Tk, Label
-from subprocess import run
+import tkinter
+import subprocess
 import os
-
+import pickle
+     
 class Redshift:
     def __init__(self):
-        with open(get_absolute_path('memory'), "r") as memory:
-            temperature, brightness = memory.read().split()
-            self.temperature = int(temperature)
-            self.brightness = int(brightness) 
+        try:
+            with open(get_absolute_path('pickle_file'), 'rb') as pickle_file:
+                self.data = pickle.load(pickle_file)
+        except (FileNotFoundError, EOFError):
+            self.data = Default()
+
     def change(self, key):
         if key.keysym in ('b', 'k'):
-            self.brightness = self.brightness + 3 
-            if self.brightness > 100:
-                self.brightness = 100
+            self.data.brightness = self.data.brightness + 3 
+            if self.data.brightness > 100:
+                self.data.brightness = 100
         elif key.keysym in ('d', 'j'):
-            self.brightness = self.brightness - 3 
+            self.data.brightness = self.data.brightness - 3 
         elif key.keysym in ('w', 'h'):
-            self.temperature = self.temperature - 100
+            self.data.temperature = self.data.temperature - 100
         elif key.keysym in ('c', 'l'):
-            self.temperature = self.temperature + 100
+            self.data.temperature = self.data.temperature + 100
         elif key.keysym in ('r', 'r'):
-            run(['redshift', '-x'])
+            subprocess.run(['redshift', '-x'])
             return
         elif key.keysym in ('1', 'o', 'f'):
-            self.brightness = 100 
+            self.data.brightness = 100 
         elif key.keysym == 'Escape':
-            remember(self.temperature, self.brightness)
+            self.remember()
             root.destroy()
             return
         else:
             return
-        run(['redshift',
-             '-O', str(self.temperature),
-             '-b', str(self.brightness /100)])
+        subprocess.run(['redshift',
+             '-O', str(self.data.temperature),
+             '-b', str(self.data.brightness /100)])
+
+    def remember(self):
+        with open(get_absolute_path('pickle_file'), 'wb') as pickle_file:
+            pickle.dump(self.data, pickle_file)
+
 
 def get_absolute_path(relative_path):
     this_file_path = os.path.realpath(__file__) 
@@ -42,17 +50,20 @@ def get_absolute_path(relative_path):
     absolute_path = os.path.join(this_file_directory, relative_path)
     return absolute_path
 
-def remember(temperature, brightness):
-    with open(get_absolute_path('memory'), "w") as memory:
-        memory.write('{} {}'.format(temperature, brightness))
-
 class Hints:
     def __init__(self):
-        self.label = Label(root, text='''bdwc1
+        self.label = tkinter.Label(root, text='''bdwc1
 jkhlof''')
         self.label.pack()
+        
 
-root = Tk()
+class Default:
+    def __init__(self):
+        self.brightness = 100
+        self.temperature = 3500 
+ 
+
+root = tkinter.Tk()
 rs = Redshift()
 root.bind('<Key>', rs.change)
 root.title('screen')
