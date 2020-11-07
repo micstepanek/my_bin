@@ -1,0 +1,1 @@
+/home/h/aa/vifm_print/vifm_print

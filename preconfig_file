@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+gvim ~/aa/i3/preconfig

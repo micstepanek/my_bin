@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-#2
-while true
-do
-xrdb ~/.Xresources
-urxvt -e vim /home/h/.Xresources
-read
-done
-

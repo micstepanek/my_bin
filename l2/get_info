@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-#2
-a= xdotool getwindowfocus getwindowgeometry
-urxvt -e dwmb $a

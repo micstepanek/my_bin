@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-#2n
-#docker run -it --rm -p 8888:8888 -v ~/notebooks:/home/jovyan stepankuzmin/pytorch-notebook
-docker run -it --rm -p 8888:8888 -v ~/aa/notebooks:/home/jovyan/work luissalgadofreire/h2o-python

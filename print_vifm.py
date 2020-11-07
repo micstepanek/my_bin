@@ -1,1 +1,0 @@
-/home/a/aa/bin/print_vifm_/print_vifm.py

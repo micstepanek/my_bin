@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#2
+gvim ~/aa/background/pc_list.tex
+update_background

@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-check_hidden
-echo hit Return to save config and turn machine off immediatelly
-read
-cp ~/.config/i3/config ~/.config/i3/config_before_shutdown_gracefully
-shutdown 0

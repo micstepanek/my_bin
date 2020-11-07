@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-#2
-i3-msg mode make

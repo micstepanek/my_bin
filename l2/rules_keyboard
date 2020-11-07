@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-#2n
-less /usr/share/X11/xkb/rules/xorg.lst

@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-urxvtc -e title_window_step_2 $(xdotool getactivewindow)

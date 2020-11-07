@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+run_in_terminal.sh $0 || exit
+
+check_hidden.sh
+echo enter to exit i3 = do logout
+read
+cp ~/.config/i3/config ~/.config/i3/config_before_logout_gracefully
+i3-msg exit
+

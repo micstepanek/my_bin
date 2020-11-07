@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+run_in_terminal.sh $0 || exit
+
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head

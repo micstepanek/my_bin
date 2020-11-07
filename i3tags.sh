@@ -1,0 +1,1 @@
+/home/h/aa/i3/i3tags.sh

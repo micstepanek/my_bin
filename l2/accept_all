@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-#2
-for i in {1..200}
-do
-   xdotool click 1 
-   sleep 0.1
-done

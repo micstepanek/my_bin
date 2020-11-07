@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-#
-read -sn1 x
-printf $x

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#2
+#nohup chromium-browser --app=https://calendar.google.com/calendar/r/month &
+i3-msg workspace f
+nohup firefox https://calendar.google.com/calendar/r/month &
